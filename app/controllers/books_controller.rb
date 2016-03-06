@@ -26,4 +26,16 @@ class BooksController < ApplicationController
     @book = Book.find(params[:id])
     erb :'/books/show'
   end
+
+  get '/books/:id/edit' do 
+    @book = Book.find(params[:id])
+    erb :'/books/edit'
+  end
+
+  post '/books/:id' do 
+    @book = Book.find(params[:id])
+    @book.update(title: params[:title])
+    @book.author.update(params[:author])
+    redirect "/books/#{@book.id}"
+  end
 end
