@@ -5,6 +5,7 @@
   <p>Author</p>
   <p>Select an existing author: </p>
   <select name="author_id">
+      <option value="999999">Create new...</option>
     <% @authors.each do |author| %>
       <option value=<%=author.id %>><%= author.display_name %></option>
     <% end %>

@@ -1,6 +1,4 @@
 class BooksController < ApplicationController
-
-
   get '/books' do
     erb :'/books/index'
   end
@@ -11,20 +9,16 @@ class BooksController < ApplicationController
   end
 
   post '/books' do 
-    
     @book = Book.new
-    @author = Author.find(params[:author_id])
-
-    if @author 
-      @book.author = @author
-    else 
-      @author_new = Author.create(params[:author])
-      @book.author = @author_new
+    if params[:author][:first_name] != ""
+      @book.author = Author.create(params[:author])
+    else
+      @book.author = Author.find(params[:author_id])
     end
-    @book.title = params[:title]
-    
+      
+     @book.title = params[:title] 
     @book.save
-
+    current_user.books << @book
     redirect "/books/#{@book.id}"
   end
 
@@ -32,5 +26,4 @@ class BooksController < ApplicationController
     @book = Book.find(params[:id])
     erb :'/books/show'
   end
-
 end
