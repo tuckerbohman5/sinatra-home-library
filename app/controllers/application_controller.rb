@@ -15,7 +15,7 @@ class ApplicationController < Sinatra::Base
   helpers do
     def redirect_if_not_logged_in
       if !logged_in?
-        redirect "/login?error=You have to be logged in to do that"
+        redirect "/login?error=You must be logged in to access your library"
       end
     end
 

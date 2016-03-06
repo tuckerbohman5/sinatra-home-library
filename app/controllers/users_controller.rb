@@ -1,6 +1,11 @@
 class UsersController < ApplicationController
   get '/login' do 
+    if logged_in?
+      redirect '/books'
+    else
+    @error_message = params[:error]
     erb :'/users/login'
+    end
   end
 
   post '/login' do 
@@ -15,7 +20,11 @@ class UsersController < ApplicationController
   end
 
   get '/signup' do 
+    if logged_in?
+      redirect '/books'
+    else
     erb :'/users/signup'
+    end
   end
 
   post '/signup' do 
