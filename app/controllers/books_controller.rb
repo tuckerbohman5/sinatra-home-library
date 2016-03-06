@@ -7,20 +7,30 @@ class BooksController < ApplicationController
   get '/books/new' do 
     redirect_if_not_logged_in
     @authors = Author.all
+    @error_message = params[:error]
     erb :'/books/new'
   end
 
   post '/books' do 
     redirect_if_not_logged_in
     @book = Book.new
-    if params[:author][:first_name] != ""
+    if params[:author][:first_name] != "" && params[:author][:last_name] != ""
       @book.author = Author.create(params[:author])
+    elsif params[:author_id] == "999" 
+            redirect "/books/new?error=Please select or create a valid author"
+    elsif @author = Author.find(params[:author_id])
+      @book.author = @author
     else
-      @book.author = Author.find(params[:author_id])
+      redirect "/books/new?error=Please select or enter a valid author"
     end
       
      @book.title = params[:title] 
-    @book.save
+     if @book.title = ""
+      redirect "/books/new?error=Please enter a title"
+      else
+     @book.save
+   end
+    
     current_user.books << @book
     redirect "/books/#{@book.id}"
   end

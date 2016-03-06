@@ -1,11 +1,12 @@
 <h1>Add a new book to your library</h1>
+<h3 style="color:red"><%= @error_message%></h3>
 <form action="/books" method="POST">
   <p>Title</p>
   <input type="text" name="title"><br>
   <p>Author</p>
   <p>Select an existing author: </p>
   <select name="author_id">
-      <option value="999999">Create new...</option>
+      <option value="999">Create new...</option>
     <% @authors.each do |author| %>
       <option value=<%=author.id %>><%= author.display_name %></option>
     <% end %>
