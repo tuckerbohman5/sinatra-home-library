@@ -1,4 +1,5 @@
-<h1><%= @book.title %></h1>
+<h1><%= @book.title %></h1><a href="/books/new">Add a new book</a>
 <h3>Written By: <%= @book.author.display_name %></h3>
 <a href="/books/<%=@book.id%>/edit">Edit Book</a>
-<a href="/books/<%=@book.id%>/delete">Remove Book</a>
+<a href="/books/<%=@book.id%>/delete">Remove Book</a><br>
+<a href="/books">Back to Library</a>

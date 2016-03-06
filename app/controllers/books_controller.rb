@@ -38,4 +38,17 @@ class BooksController < ApplicationController
     @book.author.update(params[:author])
     redirect "/books/#{@book.id}"
   end
+
+  get '/books/:id/delete' do 
+    @book = Book.find(params[:id])
+    if current_user.id == @book.user_id
+      @book.delete
+      redirect '/books'
+    else
+      #error message
+      redirect '/books'
+    end
+
+  end
+
 end
